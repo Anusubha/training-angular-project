@@ -1,0 +1,81 @@
+<!--Example for Tempalte Fucntions -->
+<h2><u>2.Template:</u></h2>
+
+<h3><u>1.Interpolation:</u></h3>
+<h4>1.Mathematical Operation: </h4>
+<p>mathematical operation of 13.24*36.1 is {{13.24*36.1}}</p> 
+<h4>2.String concatenation: </h4>
+<p>{{"Welcome to " + Name}}</p>
+<h4>3.JS Methods & Properties: </h4>
+<p>Length of Angular: {{Name.length}}</p>
+<p>UpperCase of Angular : {{Name.toUpperCase()}}</p>
+<p>LowerCase of Angular : {{Name.toLowerCase()}}</p>
+<p>Slice of Angular with 4 & 2:5     : {{Name | slice:4}} {{Name | slice:2:5}} </p>    
+
+<!--Example for Pipe concept -->
+<h3><u>2.Pipes:</u></h3>
+<h4>1.Number Pipes:</h4>
+<ul>
+    <li>Number (4.678329) in 1.5 Format : {{4.678329 | number:'1.5'}}</li>
+    <li>Number (14.67839) in 5.3-4 Format : {{14.67839| number:'5.3-4'}}</li>
+    <li>Number (98.123) in 3.4-5 Format : {{98.123 | number:'3.4-5'}}</li>
+    <li>Percent (1.0) : {{1.0 | percent}}</li>
+    <li>Percent (0.25) in 2.1 Format: {{0.25 | percent:'2.1'}}</li>
+    <li>Currency with default format (50) : {{50 | currency}}</li>
+    <li>Currency with specific format (50) : {{50 | currency:'INR'}}</li>
+    <li>Currency with currency code (50) : {{50 | currency:'INR':'code'}}</li>
+    <li>Currency with currency code (50) : {{50 | currency:'INR':'code':'2.1'}}</li>
+</ul>
+<h4>2.Date Pipes</h4>
+<ul>
+    <li>Today Date: {{today}}</li>
+    <li>Today Date in Short Format: {{today | date:'short'}}</li>
+    <li>Today Date in ShortDate Format: {{today | date:'shortDate'}}</li>
+    <li>Today Date in ShortTime Format: {{today | date:'shortTime'}}</li>
+    <li>Today Date in Medium Format: {{today | date:'medium'}}</li>
+    <li>Today Date in MediumDate Format: {{today | date:'mediumDate'}}</li>
+    <li>Today Date in MediumTime Format: {{today | date:'mediumTime'}}</li>
+    <li>Today Date in Long Format: {{today | date:'long'}}</li>
+    <li>Today Date in Long Date Format: {{today | date:'longDate'}}</li>
+    <li>Today Date in Long Time Format: {{today | date:'longTime'}}</li>
+    <li>Today Date : {{today | date:'Y/MM/dd hh:mm:ss a'}}</li>
+</ul>
+<h4>3.JSON Pipe</h4>
+<p>JSON pipe: {{employee | json}}</p>
+<h4>4.Custom Pipe</h4>
+<p>Cube Value of 7 using Custom pipe : {{7 | cube}}</p>
+
+<!--Example for Binding -->
+<h3><u>3.Binding:</u></h3>
+<h4>1.Property binding</h4>
+<p>Interpolation and Property binding can achieve the same results.</p>
+<p><img src="{{imageUrl}}" > is the <i>interpolated</i> image.</p> 
+<p><img [src]="imageUrl"> is the <b>property bound</b> image.</p>
+<p>Button toggle Functionality</p>
+<button [disabled]="isButtonDisabled">Disabled Button</button>
+<h4>2.Attribute binding</h4>
+<p class='text-color'>Normal Content with Style</p>
+<p [class.single-binding-color]='isSuccess'>Single Binding</p>
+<p [class]='colorWithAlignment'>Multiple Binding </p>
+<p [style.color]="'orange'">Style Binding </p>
+<p [style.color]="isSuccess ? 'red' : 'orange'">Style Binding with condition</p>
+<p [style]='multiStyle'>Multiple Style binding </p>
+<h4>3.Event Binding</h4>
+<p>While clicking the button It shows odd and even number with separete Colors:</p>
+<button (click)="buttonClick()">Event</button>
+<br>
+<p [style.color]="changeColor ? 'green' : 'purple'">{{buttonClickCount}}</p>
+<p>While Clicking save button the current value of click counts will be dispalyed</p>
+<button (click)="onSave()">Save</button>
+<br> <br>
+<input [(ngModel)]="saveValue" type="text">
+<h4>4.Two Way Binding</h4>
+<p> when you type in the textbox, it will reflected on the second textbox as well</p>
+<input [(ngModel)]="username" type="text"> 
+<br><br>
+<input [(ngModel)]="username" type="text" [style]='multiStyle'> 
+<p [class.text-color]=isSuccess> {{username.toUpperCase()}} </p>
+<p> While clicking the call button the corresponding phone number will be displayed in console</p>
+<input #phone placeholder="phone number" /> 
+<br><br>
+<button (click)="callPhone(phone.value)">Call</button>

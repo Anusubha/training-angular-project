@@ -1,0 +1,43 @@
+<h1>Reactive Form Example</h1>
+<h3>Registration Page</h3>
+<form [formGroup]="registrationForm"> 
+    <!-- {{registrationForm.value | json}} -->
+    <label for="name" class="label-alignment">Username:</label>
+    <br>
+    <input type="text" formControlName="userName" class="textbox-alignment"
+    [class.is-invalid]="registrationForm.get('userName').invalid && registrationForm.get('userName').touched">
+    <div *ngIf="registrationForm.get('userName').invalid && registrationForm.get('userName').touched"> 
+    <small class="error" *ngIf="registrationForm.get('userName').errors?.required">Username is required.</small> 
+    <small class="error" *ngIf="registrationForm.get('userName').errors?.minlength">Username should have minimum 5 characters.</small> 
+    </div>
+    <br>
+    <label for="name" class="label-alignment">Password:</label>
+    <br>
+    <input type="password" formControlName="password" class="textbox-alignment">
+    <br>
+    <label for="name" class="label-alignment">Confirm Password:</label>
+    <br>
+    <input type="password" formControlName="confirmPassword" class="textbox-alignment">
+    <br>
+    <label for="name" class="label-alignment">Profilename:</label>
+    <br>
+    <input type="text" formControlName="profilename" class="textbox-alignment"> 
+    <br>
+    <label for="name"class="label-alignment">Email:</label>
+    <br>
+    <input type="text" formControlName="email" class="textbox-alignment"
+    [class.is-invalid]="registrationForm.get('email').invalid && registrationForm.get('email').touched">
+    <div *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched"> 
+    <small class="error" *ngIf="registrationForm.get('email').errors?.required">Email is required.</small> 
+    </div>
+    <br>
+    <label for="name"class="label-alignment">Phonenumber:</label>
+    <br>
+    <input type="text" formControlName="phonenumber" class="textbox-alignment"
+    [class.is-invalid]="registrationForm.get('phonenumber').invalid && registrationForm.get('phonenumber').touched">
+    <div *ngIf="registrationForm.get('phonenumber').invalid && registrationForm.get('phonenumber').touched"> 
+    <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.required">phonenumber is required.</small> 
+    <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.minlength">phonenumber should have minimum 10 characters.</small> 
+</div>
+    <br> 
+</form>

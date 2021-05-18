@@ -1,0 +1,19 @@
+
+.error {
+    color: red;
+}
+.textbox-alignment{
+    width:300px;
+    font-size: medium;
+}
+.label-alignment{
+    font-size: large;
+    font-style: bold;
+}
+.is-invalid {
+    border: 1px solid red ;
+}
+.text-alignment{
+    font-size:x-large;
+    font-style: bold;
+}

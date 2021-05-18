@@ -1,0 +1,49 @@
+<h3><u>3.Directive</u></h3>
+
+<h4><u>1. Attribute Directive</u></h4>
+<h5>1.NgClass Directive</h5>
+<p [ngClass]="trueValue ? 'text-error' : 'text-success'">ngClass Example with condition</p>
+<p [ngClass]="messageClasses">ngClass with multiple CSS class</p>
+<h5>2.NgStyle Directive</h5>
+<p [ngStyle]="messageStyles">ngStyle with multiple style property</p>
+
+<h4><u>2. Custom Attribute Directive</u></h4>
+<p appHighlight>Highlight me!</p>
+
+<h3><u>3. Structural Directive</u></h3>
+<h4>1.ngIf</h4>
+<div *ngIf="isActive">
+    ngIf True Condition satisfies
+</div>
+<ng-template >ng template without anything</ng-template>
+<h5>With Else</h5>
+<div *ngIf="isActive; else elseBlock">
+    ngIfElse True Condition satisfies
+</div>
+<ng-template #elseBlock>
+    ngIfElse False Condition satisfies
+</ng-template>
+
+<h4>2.ngFor</h4>
+<div *ngFor="let color of colors">
+    <div>{{color}}</div>
+</div>
+<h5>Accessing Index</h5>
+<div *ngFor="let color of colors; index as i">
+    <div>index {{i}}: {{color}}:</div>
+</div>
+<h5>Accessing First & Last Element</h5>
+<div *ngFor="let color of colors; first as f; last as l">
+    <div>{{f}} {{l}}: {{color}}</div>
+</div>
+<h5>Accessing Odd & Even Ittem</h5>
+<div *ngFor="let color of colors; odd as o; even as e">
+    <div>{{o}} {{e}}: {{color}}</div>
+</div>
+
+<h4>3.ngSwitch</h4>
+<div [ngSwitch]="color">
+    <div *ngSwitchCase="'red'">you have selected red.</div>
+    <div *ngSwitchCase="'orange'">you have selected orange.</div>
+    <div *ngSwitchDefault>default selected</div>
+</div>

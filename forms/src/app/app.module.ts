@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TDFComponent } from './tdf/tdf.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RfComponent } from './rf/rf.component';
+import { ComboBoxModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { RfComponent } from './rf/rf.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DropDownListModule ,
+    ComboBoxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

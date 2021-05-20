@@ -1,43 +1,135 @@
-<h1>Reactive Form Example</h1>
-<h3>Registration Page</h3>
-<form [formGroup]="registrationForm"> 
+<form [formGroup]="registrationForm" #regForm="ngForm"> 
+  <div [hidden]="regForm.submitted"> 
+    <h1>Reactive Form Example</h1>
+    <h3>Registration Page</h3>
     <!-- {{registrationForm.value | json}} -->
     <label for="name" class="label-alignment">Username:</label>
     <br>
-    <input type="text" formControlName="userName" class="textbox-alignment"
+    <input type="text" formControlName="userName" class="textbox-alignment" 
     [class.is-invalid]="registrationForm.get('userName').invalid && registrationForm.get('userName').touched">
-    <div *ngIf="registrationForm.get('userName').invalid && registrationForm.get('userName').touched"> 
-    <small class="error" *ngIf="registrationForm.get('userName').errors?.required">Username is required.</small> 
-    <small class="error" *ngIf="registrationForm.get('userName').errors?.minlength">Username should have minimum 5 characters.</small> 
-    </div>
+    <div *ngIf="registrationForm.get('userName').invalid && registrationForm.get('userName').touched">
+      <small class="error" *ngIf="registrationForm.get('userName').errors?.required">Username is required.</small>
+      <ng-container *ngIf="registrationForm.get('userName').errors?.pattern; else multipleElseBlock">
+       <small class="error">Username should not contain special charcters.</small> 
+      </ng-container>
+      <ng-template #multipleElseBlock>
+        <small class="error" *ngIf="registrationForm.get('userName').errors?.minlength || 
+        registrationForm.get('userName').errors?.maxlength">
+        Username should have 7 characters only.
+        </small>
+       </ng-template> 
+      </div> 
     <br>
-    <label for="name" class="label-alignment">Password:</label>
-    <br>
-    <input type="password" formControlName="password" class="textbox-alignment">
-    <br>
-    <label for="name" class="label-alignment">Confirm Password:</label>
-    <br>
-    <input type="password" formControlName="confirmPassword" class="textbox-alignment">
-    <br>
+
     <label for="name" class="label-alignment">Profilename:</label>
     <br>
-    <input type="text" formControlName="profilename" class="textbox-alignment"> 
+    <input type="text" formControlName="profilename" class="textbox-alignment" 
+    [class.is-invalid]="registrationForm.get('profilename').invalid && registrationForm.get('profilename').touched">
+    <div *ngIf="registrationForm.get('profilename').invalid && registrationForm.get('profilename').touched"> 
+    <small class="error" *ngIf="registrationForm.get('profilename').errors?.required">Profilename is required.</small> 
+    </div> 
     <br>
+
     <label for="name"class="label-alignment">Email:</label>
     <br>
     <input type="text" formControlName="email" class="textbox-alignment"
     [class.is-invalid]="registrationForm.get('email').invalid && registrationForm.get('email').touched">
     <div *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched"> 
     <small class="error" *ngIf="registrationForm.get('email').errors?.required">Email is required.</small> 
+    <small class="error" *ngIf="registrationForm.get('email').errors?.email">Email is not vaild. Giver proper Email ID.</small> 
     </div>
     <br>
+
     <label for="name"class="label-alignment">Phonenumber:</label>
     <br>
     <input type="text" formControlName="phonenumber" class="textbox-alignment"
     [class.is-invalid]="registrationForm.get('phonenumber').invalid && registrationForm.get('phonenumber').touched">
-    <div *ngIf="registrationForm.get('phonenumber').invalid && registrationForm.get('phonenumber').touched"> 
-    <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.required">phonenumber is required.</small> 
-    <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.minlength">phonenumber should have minimum 10 characters.</small> 
-</div>
-    <br> 
+    <div *ngIf="registrationForm.get('phonenumber').invalid && registrationForm.get('phonenumber').touched">
+      <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.required">phonenumber is required.</small>
+      <ng-container *ngIf="registrationForm.get('phonenumber').errors?.pattern; else multipleElseBlock">
+       <small class="error">phonenumber is Not vaild.</small> 
+      </ng-container>
+      <ng-template #multipleElseBlock>
+        <ng-container *ngTemplateOutlet="MinCheckBlock"></ng-container>
+        <ng-container *ngTemplateOutlet="MaxCheckBlock"></ng-container>
+      </ng-template>
+      <ng-template #MinCheckBlock>
+        <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.minlength">phonenumber 
+          should have minimum 10 characters.
+        </small>
+      </ng-template> 
+      <ng-template #MaxCheckBlock>
+        <small class="error" *ngIf="registrationForm.get('phonenumber').errors?.maxlength">phonenumber 
+          should have maximum 10 characters.
+        </small>
+      </ng-template>
+      </div>  
+      <br> 
+
+    <label class="label-alignment">Address:</label>
+    <div formGroupName="address"> 
+        <label class="label-alignment">Address Details:</label>
+        <br>
+        <input formControlName="doorno" class="textbox-alignment"
+        [class.is-invalid]="registrationForm.get('address').get('doorno').invalid && registrationForm.get('address').get('doorno').touched">
+       <div *ngIf="registrationForm.get('address').get('doorno').invalid && registrationForm.get('address').get('doorno').touched"> 
+       <small class="error" *ngIf="registrationForm.get('address').get('doorno').errors?.required">Address of user is required.</small> 
+       </div> 
+        <br>
+        <label class="label-alignment">State:</label>
+        <br>
+        <select formControlName="state" (ngModelChange)="onCountryChanged($event)">
+          <option [ngValue]="null" disabled>Select State</option>
+          <option *ngFor="let state of stateList" [ngValue]="state.id">{{state.name}}</option>
+        </select>
+        <br>
+        <label class="label-alignment">City:</label>
+        <br>
+        <select formControlName="city">
+          <option [ngValue]="null" disabled >Select City</option>
+          <option *ngFor="let city of cityList" [ngValue]="city.id">{{city.name}}</option>
+        </select>
+        <br> 
+        <label class="label-alignment">Pincode:</label>
+        <br>
+        <input formControlName="pincode" class="textbox-alignment"
+        [class.is-invalid]="registrationForm.get('address').get('pincode').invalid && registrationForm.get('address').get('pincode').touched">
+       <div *ngIf="registrationForm.get('address').get('pincode').invalid && registrationForm.get('address').get('pincode').touched"> 
+       <small class="error" *ngIf="registrationForm.get('address').get('pincode').errors?.required">Pin code is required.</small> 
+       <small class="error" *ngIf="registrationForm.get('address').get('pincode').errors?.pattern || 
+        registrationForm.get('address').get('pincode').errors?.minlength || 
+        registrationForm.get('address').get('pincode').errors?.maxlength">
+        Pin code is not vaild.
+        </small>
+
+    </div> 
+    </div> 
+
+    <label class="label-alignment">Password:</label>
+    <br>
+    <input type="password" formControlName="password" class="textbox-alignment"
+    [class.is-invalid]="registrationForm.get('password').invalid && registrationForm.get('password').touched">
+    <div *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched"> 
+    <small class="error" *ngIf="registrationForm.get('password').errors?.required">Password of user is required.</small> 
+    <small class="error" *ngIf="registrationForm.get('password').errors?.pattern">Password should contains miminum one
+      Uppercase,Lowercase,number and special character. Length should be miminum 7.</small> 
+    </div> 
+    <br>
+
+    <label class="label-alignment">Confirm Password:</label>
+    <br>
+    <input type="password" formControlName="confirmPassword" class="textbox-alignment"
+    [class.is-invalid]="registrationForm.get('confirmPassword').touched && registrationForm.errors?.mismatch">
+    <div *ngIf="registrationForm.get('confirmPassword').touched && registrationForm.errors?.mismatch">
+        <small *ngIf="registrationForm.errors?.mismatch" class="error">Password does not match.</small>
+    </div>
+    <br><br>
+
+    <button type="submit" [disabled]="registrationForm.invalid" >Register</button> 
+    <button type="button" (click)="regForm.resetForm({})"style="margin-left: 8px;">Reset</button>
+    </div>  
 </form>
+<div *ngIf="regForm.submitted">
+  <br><br>
+  <label class="text-alignment">Registration completed successfully.</label>
+</div>
